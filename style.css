@@ -1,0 +1,73 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 0.3em;
+  font-size: clamp(120px, 25vw, 200px);
+  background: #7e7edb;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-size: 25px;
+  padding: 0.5em 0 2em;
+  font-family: monospace;
+  text-transform: capitalize;
+}
+
+.animals {
+  display: flex;
+  position: relative;
+  z-index: var(--z);
+}
+
+.animal-wrapper {
+  position: relative;
+  --z: 0;
+  height: 1em;
+  width: 1em;
+  transform: rotate(45deg);
+  z-index: var(--z, 0);
+  transition: z-index 0s 300ms, opacity 300ms;
+}
+
+.animal {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.1em;
+  position: relative;
+  --x: 0em;
+  transform: translateX(var(--x)) translateY(calc(var(--x) * -1));
+  top: calc(var(--x, 0));
+  left: calc(var(--x, 0) * -1);
+  --top-delay: 300ms;
+  --transform-delay: 0s;
+  transition: left 300ms, top 300ms, transform 300ms, box-shadow 300ms;
+  transition-delay: var(--top-delay), var(--top-delay), var(--transform-delay), 0ms;
+}
+
+.animal img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transform: scale(1.42) rotate(-45deg);
+}
+
+.animals:active .animal-wrapper {
+  opacity: 0.5;
+}
+.animals:active .animal-wrapper:active {
+  opacity: 1;
+  --z: 2;
+}
+.animals:active .animal-wrapper:active .animal {
+  box-shadow: 10px 10px 30px rgba(2, 0, 0, 0.438);
+}
+.animals:active .animal-wrapper:active:not(:last-child) .animal {
+  --x: 0.4em;
+  --top-delay: 0s;
+  --transform-delay: 300ms;
+}
